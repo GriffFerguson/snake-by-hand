@@ -13,3 +13,28 @@ body{
     background-color: rgb(0, 255, 0);
     transform: translate(49.5vw, 49.5vh)
 }
+
+.scorewrapper {
+    position:fixed;
+    z-index:99;
+    left: 1.1vw;
+    top:0.5vh;
+    color:white;
+    font-size:1.5em;
+    font-family:sans-serif;
+}
+.scorewrapper span {font-weight: initial !important;}
+
+#gameOver {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    color:white;
+    font-family: sans-serif;
+    text-align:center;
+    display:block;
+}
+#gameOver h1 {font-size:4em;}
+#gameOver p{font-size:1.5em;font-weight:1000;}
+#gameOver span{font-size:1em;font-weight:initial;}

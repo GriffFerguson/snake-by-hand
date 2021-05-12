@@ -9,34 +9,34 @@ var player = document.getElementById("player");
 document.addEventListener('keydown', function(e) {
     switch(e.code) {
         case "ArrowRight":
-            console.log("right arrow pressed");
+            // console.log("right arrow pressed");
             horizontalChange = 0.6;
             verticalChange = 0;
-            player.transform = 'translate'
             break;
         case "ArrowLeft":
-            console.log("left arrow pressed");
+            // console.log("left arrow pressed");
             horizontalChange = -0.6;
             verticalChange = 0;
             break;
         case "ArrowUp":
-            console.log("up arrow pressed");
+            // console.log("up arrow pressed");
             horizontalChange = 0;
             verticalChange = -1;
             break;
         case "ArrowDown":
-            console.log("down arrow pressed");
+            // console.log("down arrow pressed");
             horizontalChange = 0;
             verticalChange = 1;
             break;
     }
-    console.log("Horizontal: " + horizontal);
-    console.log("Vertical: " + vertical);
+    // console.log("Horizontal: " + horizontal);
+    // console.log("Vertical: " + vertical);
 })
 
 setInterval (function() {
     horizontal = horizontal + horizontalChange;
     vertical = vertical + verticalChange;
     player.style.transform = 'translate(' + horizontal + 'vw,' + vertical + 'vh)';  
+    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100) {horizontal = 100;}
 }, 100)
 }
