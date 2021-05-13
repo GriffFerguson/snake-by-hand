@@ -4,14 +4,16 @@
     <meta charset="utf-8">
     <title>Snake - Created Entirely By Hand</title>
     <link rel="stylesheet" href="resources/style.css">
-    <script src="resources/movement.js"></script>
+    <script src="resources/script.js"></script>
 </head>
 <body>
     <p class="scorewrapper">SCORE: <span id="score">0</span></p>
     <div id="player"></div>
+    <div id="target"></div>
     <div id="gameOver">
         <h1>GAME OVER</h1>
-        <p>Final Score: <span id="finalScore">0</span></p>
+        <p>Final Score: <span id="finalScore"></span></p>
+        <button onclick="location.reload()">Restart</button>
     </div>
 </body>
 </html>
