@@ -3,7 +3,8 @@ body{
     padding:0;
     background-color: black;
     overflow:hidden;
-
+    width:100vw;
+    height:100vh;
 }
 
 button {
@@ -20,11 +21,11 @@ button:hover {
 }
 
 #player{
-    position:relative;
+    position:absolute;
     width:1.5vw;
     height:1.5vw;
     background-color: rgb(0, 255, 0);
-    transform: translate(49.5vw, 49.5vh);
+    transform:translate(-50%,-50%);
 }
 
 #target{
@@ -33,6 +34,7 @@ button:hover {
     height:1.2vw;
     border-radius:0.6vw;
     background-color:rgb(177, 0, 0);
+    transform:translate(-50%,-50%);
 }
 
 .scorewrapper {
@@ -60,4 +62,4 @@ button:hover {
 }
 #gameOver h1 {font-size:4em;margin:0;}
 #gameOver p{font-size:1.5em;font-weight:1000;margin:0.75em;}
-#gameOver span{font-size:1em;font-weight:initial;margin:0;}
+#gameOver span{font-weight:initial;margin:0;}
