@@ -1,7 +1,6 @@
 window.onload = function() {
 var score = 0;
 var gameOver = 0;
-var turnFrame = 0;
 
 //Player
 var horizontal = 50;
@@ -10,10 +9,10 @@ var vertical = 50;
 var verticalChange = 0;
 var player = document.getElementById("player");
 var segmentPosHori = [
-    horizontal - 1
+
 ]
 var segmentPosVert = [
-    vertical - 1.75
+
 ]
 
 //Target
@@ -59,8 +58,6 @@ document.addEventListener('keydown', function(e) {
 })
 
 setInterval (function() {
-    turnFrame = turnFrame++;
-
     //Player functions
     horizontal = horizontal + horizontalChange;
     vertical = vertical + verticalChange;
@@ -106,7 +103,7 @@ setInterval (function() {
     }
 
     //Player length
-    for (let index = 0; index < score; index++) {
+        for (let index = 0; index < score; index++) {
         segmentPosHori[index] = segmentPosHori[index - 1] + horizontalChange;
         segmentPosVert[index] = segmentPosVert[index - 1] + verticalChange;
     }
