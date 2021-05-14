@@ -8,6 +8,12 @@ var horizontalChange = 0;
 var vertical = 50;
 var verticalChange = 0;
 var player = document.getElementById("player");
+var segmentPosHori = [
+
+]
+var segmentPosVert = [
+
+]
 
 //Target
 var targetHori = (Math.round(Math.random() * 95));
@@ -69,13 +75,33 @@ setInterval (function() {
         (horizontal + 3) > targetHori &&
         (vertical + 3) > targetVert &&
         (vertical - 3) < targetVert
-        ) {
-            // console.log("Target hit!")
-            targetVert = (Math.round(Math.random() * 95));
-            targetHori = (Math.round(Math.random() * 47.5));
-            score = score + 1;
-            document.getElementById("score").innerText = score;
-            // console.log("Score: " + score);
-        }
+    ) {
+        // console.log("Target hit!")
+        targetVert = (Math.round(Math.random() * 95));
+        targetHori = (Math.round(Math.random() * 47.5));
+        score = score + 1;
+        document.getElementById("score").innerText = score;
+        // console.log("Score: " + score);
+    }
+
+    //Player length
+    segmentPosVert[0] = vertical - (verticalChange * -1);
+    segmentPosHori[0] = horizontal - (horizontalChange * -1);
+    for (let index = 1; index < segmentPosHori.length; index++) {
+        segmentPosHori[index] = segmentPosHori[index - 1];
+        document.getElementById("player_seg" + index).style.left = segmentPosHori[index] + '%';
+    }
+    for (let index = 1; index < segmentPosVert.length; index++) {
+        segmentPosVert[index] = segmentPosVert[index - 1];
+        document.getElementById("player_seg" + index).style.top = segmentPosVert[index] + '%';
+    }
+    for (let index = 0; index < score; index++) {
+        var seg = document.createElement("div");
+        seg.classList.add("playersegment");
+        seg.setAttribute("id", "player_seg" + (index + 1));
+        document.body.appendChild(seg);
+        segmentPosHori.push(index + 1);
+        segmentPosVert.push(index + 1);
+    }
 }, 100)
 }
