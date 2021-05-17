@@ -116,4 +116,4 @@ setInterval (function() {
             console.log("Vertical collision");
         }
     }
-}, 75)}
+}, 85)}
