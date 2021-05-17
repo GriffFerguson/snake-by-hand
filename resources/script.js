@@ -106,4 +106,7 @@ setInterval (function() {
         document.getElementById("player_seg" + index).style.left = horizontalArc[index + 1] +'%';
         document.getElementById("player_seg" + index).style.top = verticalArc[index + 1] + '%';
     }
+    if (horizontalArc.length > score) {horizontalArc.pop()}
+    if (verticalArc.length > score) {verticalArc.pop()}
+    // console.log("Horizontal History: " + horizontalArc + "\r\nVertical History: " + verticalArc);
 }, 100)}
