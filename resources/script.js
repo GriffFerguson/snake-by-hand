@@ -8,12 +8,8 @@ var horizontalChange = 0;
 var vertical = 50;
 var verticalChange = 0;
 var player = document.getElementById("player");
-var segmentPosHori = [
-
-]
-var segmentPosVert = [
-
-]
+var horizontalArc = [];
+var verticalArc = [];
 
 //Target
 var targetHori = (Math.round(Math.random() * 95));
@@ -75,6 +71,9 @@ setInterval (function() {
         verticalChange = 0;
         horizontal = 50;
         vertical = 50;
+        for (let index = 0; index <= score; index++) {
+            document.getElementById("player_seg" + index).remove();
+        }
     }
 
     //Target functions
@@ -98,18 +97,13 @@ setInterval (function() {
         seg.classList.add("playersegment");
         seg.setAttribute("id", "player_seg" + (score - 1));
         document.body.appendChild(seg);
-        segmentPosHori.push(score - 1);
-        segmentPosVert.push(score - 1);
     }
 
     //Player length
-        for (let index = 0; index < score; index++) {
-        segmentPosHori[index] = segmentPosHori[index - 1] + horizontalChange;
-        segmentPosVert[index] = segmentPosVert[index - 1] + verticalChange;
+    horizontalArc.unshift(horizontal);
+    verticalArc.unshift(vertical);
+    for (let index = 0; index < score; index++) {
+        document.getElementById("player_seg" + index).style.left = horizontalArc[index + 1] +'%';
+        document.getElementById("player_seg" + index).style.top = verticalArc[index + 1] + '%';
     }
-    for (let index = 0; index < (segmentPosHori.length - 1); index++) {
-        document.getElementById("player_seg" + index).style.left = segmentPosHori[index] + '%';
-        document.getElementById("player_seg" + index).style.top = segmentPosVert[index] + '%';
-    }
-    console.log("Segment Horizontal: " + segmentPosHori + "\r\n" + "Segment Vertical: " + segmentPosVert);
-}, 500)}
+}, 100)}

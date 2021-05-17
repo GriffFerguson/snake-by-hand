@@ -63,6 +63,7 @@ button:hover {
     display:none;
     padding:0.5em;
     background-color:rgba(0,0,0,0.75);
+    z-index:999;
 }
 #gameOver h1 {font-size:4em;margin:0;}
 #gameOver p{font-size:1.5em;font-weight:1000;margin:0.75em;}
