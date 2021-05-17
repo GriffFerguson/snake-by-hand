@@ -20,33 +20,31 @@ document.addEventListener('keydown', function(e) {
     switch(e.code) {
         case "ArrowRight":
             // console.log("right arrow pressed");
-            horizontalChange = 1;
-            verticalChange = 0;
-            turnFrame = 0;
+            if (horizontalChange != -1.4) {
+                horizontalChange = 1.4;
+                verticalChange = 0;
+            }
             break;
         case "ArrowLeft":
             // console.log("left arrow pressed");
-            horizontalChange = -1;
-            verticalChange = 0;
-            turnFrame = 0;
+            if (horizontalChange != 1.4) {
+                horizontalChange = -1.4;
+                verticalChange = 0;
+            }
             break;
         case "ArrowUp":
             // console.log("up arrow pressed");
-            horizontalChange = 0;
-            verticalChange = -1.75;
-            turnFrame = 0;
+            if (verticalChange != 2) {
+                horizontalChange = 0;
+                verticalChange = -2;
+            }
             break;
         case "ArrowDown":
             // console.log("down arrow pressed");
-            horizontalChange = 0;
-            verticalChange = 1.75;
-            turnFrame = 0;
-            break;
-        case "Space":
-            horizontalChange = 0;
-            verticalChange = 0;
-            //alert("Game has been paused")
-            console.log("Game movement has been paused")
+            if (verticalChange != -2) {
+                horizontalChange = 0;
+                verticalChange = 2;
+            }
             break;
     }
     // console.log("Horizontal: " + horizontal);
@@ -60,13 +58,11 @@ setInterval (function() {
     player.style.top = vertical + 'vh'; 
     player.style.left = horizontal + 'vw';
     
-    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100) {
-        document.getElementById("gameOver").style.display = 'block';
-        document.getElementById("finalScore").innerText = score;
-        gameOver = 1;
-    }
+    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100) {gameOver = 1;}
 
     if (gameOver == 1) {
+        document.getElementById("gameOver").style.display = 'block';
+        document.getElementById("finalScore").innerText = score;
         horizontalChange = 0;
         verticalChange = 0;
         horizontal = 50;
@@ -109,4 +105,15 @@ setInterval (function() {
     if (horizontalArc.length > score) {horizontalArc.pop()}
     if (verticalArc.length > score) {verticalArc.pop()}
     // console.log("Horizontal History: " + horizontalArc + "\r\nVertical History: " + verticalArc);
-}, 100)}
+    
+    //Player segment collisions
+    for (let index = 0; index <= score; index++) {
+        if (
+            vertical == verticalArc[index + 1] && 
+            horizontal == horizontalArc[index + 1]
+        ) {
+            gameOver = 1;
+            console.log("Vertical collision");
+        }
+    }
+}, 75)}
