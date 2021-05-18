@@ -1,4 +1,4 @@
-# snake-by-hand
+# Snake, entirely "by hand"
 **Snake with no game engine; just JavaScript, HTML, and CSS!**
 <hr>
 
