@@ -29,10 +29,6 @@ button:hover {
     top:-5%;
     left:-5%;
 }
-.playersegment {
-    width: 1.7vw !important;
-    height: 1.7vw !important;
-}
 
 #target{
     position:absolute;
