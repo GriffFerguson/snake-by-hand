@@ -1,4 +1,3 @@
-window.onload = function() {
 var score = 0;
 var gameOver = 0;
 
@@ -12,7 +11,7 @@ var horizontalArc = [];
 var verticalArc = [];
 
 //Target
-var targetHori = (Math.round(Math.random() * 95));
+var targetHori = (Math.round(Math.random() * 100));
 var target = document.getElementById("target");
 var targetVert = (Math.round(Math.random() * 47.5));
 
@@ -84,6 +83,7 @@ setInterval (function() {
         // console.log("Target hit!")
         targetVert = (Math.round(Math.random() * 95));
         targetHori = (Math.round(Math.random() * 47.5));
+        console.log("targetHori: " + targetHori + "\r\ntargetVert: " + targetVert);
         score = score + 1;
         document.getElementById("score").innerText = score;
         // console.log("Score: " + score);
@@ -116,4 +116,22 @@ setInterval (function() {
             console.log("Vertical collision");
         }
     }
-}, 85)}
+}, 85)
+
+
+function reset() {
+    var horiArcLength = horizontalArc.length;
+    var vertArcLength = verticalArc.length;
+    
+    for (let index = 0; index <= horiArcLength; index++) {
+        horizontalArc.pop();
+        verticalArc.pop();
+    }
+    score = 0;
+    horizontal = 50;
+    vertical = 50;
+    horizontalChange = 0;
+    verticalChange = 0;
+    gameOver = 0;
+    document.getElementById("gameOver").style.display = 'none';
+}
