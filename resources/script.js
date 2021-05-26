@@ -2,8 +2,6 @@ var ar = 0;
 getAspectRatio();
 window.addEventListener('resize', getAspectRatio)
 
-var mspf = 85;
-
 var score = 0;
 var gameOver = 0;
 
@@ -81,18 +79,18 @@ setInterval (function() {
     target.style.top = targetVert + 'vw';
     target.style.left = targetHori +'vw';
     if (
-        (horizontal - 3) < targetHori &&
-        (horizontal + 3) > targetHori &&
+        (horizontal - 2) < targetHori &&
+        (horizontal + 2) > targetHori &&
         (vertical + 3) > targetVert &&
         (vertical - 3) < targetVert
     ) {
         // console.log("Target hit!")
         targetHori = (Math.round(Math.random() * 100));
         targetVert = (Math.round(Math.random() *  (47.5 * ar)));
-        console.log("targetHori: " + targetHori + "\r\ntargetVert: " + targetVert);
+        // console.log("targetHori: " + targetHori + "\r\ntargetVert: " + targetVert);
         score = score + 1;
         document.getElementById("score").innerText = score;
-        // console.log("Score: " + score);
+        console.log("Score: " + score);
 
         //Add player segment
         var seg = document.createElement("div");
@@ -122,7 +120,7 @@ setInterval (function() {
             console.log("Vertical collision");
         }
     }
-}, mspf)
+}, 87)
 
 
 function getAspectRatio() {
@@ -153,4 +151,7 @@ function reset() {
     verticalChange = 0;
     gameOver = 0;
     document.getElementById("gameOver").style.display = 'none';
+    console.clear();
+    getAspectRatio();
+    console.log("Game restarted!")
 }
