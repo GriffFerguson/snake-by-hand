@@ -1,0 +1,22 @@
+{
+  "name": "snake",
+  "version": "1.0.0",
+  "description": "Snake game",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GriffFerguson/snake-by-hand.git"
+  },
+  "author": "Griffin Ferguson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GriffFerguson/snake-by-hand/issues"
+  },
+  "homepage": "https://github.com/GriffFerguson/snake-by-hand#readme",
+  "devDependencies": {
+    "prodbuild": "^1.7.0"
+  }
+}

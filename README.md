@@ -1,9 +1,9 @@
-# Snake, entirely "by hand"
-**Snake with no game engine; just JavaScript, HTML, and CSS!**
+# Snake
+Snake with no game engine; just JavaScript, HTML, and CSS!
 <hr>
 
-This was mainly me experimenting with what I can do with simple JS, HTML, and CSS. The game turned out quite well so I decided to make it public.
+Originally an experiment in my early web dev days, now a fully functioning game. 
 <hr>
 
-View preview: [https://sirius-development.github.io/snake-by-hand/](https://sirius-development.github.io/snake-by-hand/)<br>
+View preview: [https://GriffFerguson.github.io/snake-by-hand/](https://GriffFerguson.github.io/snake-by-hand/)<br>
 View official release on [Bored@school](https://boredatschool.netlify.app/): [https://boredatschool.netlify.app/snake_v1/](https://boredatschool.netlify.app/snake_v1/)
