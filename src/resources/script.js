@@ -3,16 +3,17 @@ getAspectRatio();
 window.addEventListener('resize', getAspectRatio)
 
 var score = 0;
-var gameOver = 0;
+var scoreElem = document.getElementById("score");
+var gameOver = new Event("gameOver");
 
 //Player
-var horizontal = 50;
-var horizontalChange = 0;
-var vertical = (50 * ar);
-var verticalChange = 0;
+var horizontal = 50; // Horizontal position
+var horizontalChange = 0; // Speed in horizontal direction
+var vertical = (50 * ar); //Vertical position
+var verticalChange = 0; // Speed in vertical direction
 var player = document.getElementById("player");
-var horizontalArc = [];
-var verticalArc = [];
+var horizontalArc = []; // List of past horizontal coordinates for trailing elems
+var verticalArc = []; // List of past vertical coordinates for trailing elems
 
 //Target
 var targetHori = (Math.round(Math.random() * 100));
@@ -49,50 +50,45 @@ document.addEventListener('keydown', function(e) {
                 verticalChange = 1.8;
             }
             break;
+        case "KeyP":
+            horizontalChange = 0;
+            verticalChange = 0;
+            break;
     }
     // console.log("Horizontal: " + horizontal);
     // console.log("Vertical: " + vertical);
 })
 
 setInterval (function() {
-    //Player functions
+    // Player movement
     horizontal = horizontal + horizontalChange;
     vertical = vertical + verticalChange;
     player.style.top = vertical + 'vw'; 
     player.style.left = horizontal + 'vw';
+    console.log(horizontal, vertical)
     
-    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100) {gameOver = 1;}
-
-    if (gameOver == 1) {
-        document.getElementById("gameOver").style.display = 'block';
-        document.getElementById("finalScore").innerText = score;
-        horizontalChange = 0;
-        verticalChange = 0;
-        horizontal = 50;
-        vertical = (50 * ar);
-        for (let index = 0; index <= score; index++) {
-            document.getElementById("player_seg" + index).remove();
-        }
-    }
+    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100) document.dispatchEvent(gameOver);
 
     //Target functions
     target.style.top = targetVert + 'vw';
     target.style.left = targetHori +'vw';
     if (
-        (horizontal - 2) < targetHori &&
-        (horizontal + 2) > targetHori &&
-        (vertical + 3) > targetVert &&
-        (vertical - 3) < targetVert
+        (horizontal - 1.8) < targetHori &&
+        (horizontal + 1.8) > targetHori &&
+        (vertical + 1.8) > targetVert &&
+        (vertical - 1.8) < targetVert
     ) {
         // console.log("Target hit!")
         targetHori = (Math.round(Math.random() * 100));
         targetVert = (Math.round(Math.random() *  (47.5 * ar)));
         // console.log("targetHori: " + targetHori + "\r\ntargetVert: " + targetVert);
+        
+        // Update score
         score = score + 1;
-        document.getElementById("score").innerText = score;
+        scoreElem.innerText = score;
         console.log("Score: " + score);
 
-        //Add player segment
+        // Add player segment
         var seg = document.createElement("div");
         seg.classList.add("playersegment");
         seg.setAttribute("id", "player_seg" + (score - 1));
@@ -116,11 +112,10 @@ setInterval (function() {
             vertical == verticalArc[index + 1] && 
             horizontal == horizontalArc[index + 1]
         ) {
-            gameOver = 1;
-            console.log("Vertical collision");
+            document.dispatchEvent(gameOver);
         }
     }
-}, 87)
+}, 100)
 
 
 function getAspectRatio() {
@@ -136,22 +131,34 @@ function getAspectRatio() {
     console.log("Detected aspect ratio: " + ar);
 }
 
-function reset() {
+document.getElementById("reset").addEventListener("click", () => {
     var horiArcLength = horizontalArc.length;
-    var vertArcLength = verticalArc.length;
+    // var vertArcLength = verticalArc.length;
     
     for (let index = 0; index <= horiArcLength; index++) {
         horizontalArc.pop();
         verticalArc.pop();
     }
     score = 0;
+    scoreElem.innerText = 0;
     horizontal = 50;
     vertical = (50 * ar);
     horizontalChange = 0;
     verticalChange = 0;
-    gameOver = 0;
+
     document.getElementById("gameOver").style.display = 'none';
-    console.clear();
     getAspectRatio();
     console.log("Game restarted!")
-}
+})
+
+document.addEventListener("gameOver", e => {
+    document.getElementById("gameOver").style.display = 'block';
+    document.getElementById("finalScore").innerText = score;
+    horizontalChange = 0;
+    verticalChange = 0;
+    horizontal = 50;
+    vertical = (50 * ar);
+    for (let index = 0; index <= score; index++) {
+        document.getElementById("player_seg" + index).remove();
+    }
+})
