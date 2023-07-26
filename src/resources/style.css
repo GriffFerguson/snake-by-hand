@@ -32,9 +32,9 @@ button:hover {
 
 #target{
     position:absolute;
-    width:1.4vw;
-    height:1.45vw;
-    border-radius:1.45vw;
+    width:1.5vw;
+    height:1.5vw;
+    border-radius:50%;
     background-color:rgb(177, 0, 0);
     transform:translate(-50%,-50%);
     top:-5%;
