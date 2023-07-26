@@ -24,39 +24,37 @@ document.addEventListener('keydown', function(e) {
     switch(e.code) {
         case "ArrowRight":
             // console.log("right arrow pressed");
-            if (horizontalChange != -1.8) {
-                horizontalChange = 1.8;
+            if (horizontalChange != -2) {
+                horizontalChange = 2;
                 verticalChange = 0;
             }
             break;
         case "ArrowLeft":
             // console.log("left arrow pressed");
-            if (horizontalChange != 1.8) {
-                horizontalChange = -1.8;
+            if (horizontalChange != 2) {
+                horizontalChange = -2;
                 verticalChange = 0;
             }
             break;
         case "ArrowUp":
             // console.log("up arrow pressed");
-            if (verticalChange != 1.8) {
+            if (verticalChange != 2) {
                 horizontalChange = 0;
-                verticalChange = -1.8;
+                verticalChange = -2;
             }
             break;
         case "ArrowDown":
             // console.log("down arrow pressed");
-            if (verticalChange != -1.8) {
+            if (verticalChange != -2) {
                 horizontalChange = 0;
-                verticalChange = 1.8;
+                verticalChange = 2;
             }
             break;
-        case "KeyP":
-            horizontalChange = 0;
-            verticalChange = 0;
-            break;
+        // case "KeyP":
+        //     horizontalChange = 0;
+        //     verticalChange = 0;
+        //     break;
     }
-    // console.log("Horizontal: " + horizontal);
-    // console.log("Vertical: " + vertical);
 })
 
 setInterval (function() {
@@ -65,22 +63,22 @@ setInterval (function() {
     vertical = vertical + verticalChange;
     player.style.top = vertical + 'vw'; 
     player.style.left = horizontal + 'vw';
-    console.log(horizontal, vertical)
+    // console.log(horizontal, vertical)
     
-    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100) document.dispatchEvent(gameOver);
+    if (horizontal < 0 || horizontal > 100 || vertical < 0 || vertical > 100 * ar) document.dispatchEvent(gameOver);
 
-    //Target functions
+    //Target collision
     target.style.top = targetVert + 'vw';
     target.style.left = targetHori +'vw';
     if (
-        (horizontal - 1.8) < targetHori &&
-        (horizontal + 1.8) > targetHori &&
-        (vertical + 1.8) > targetVert &&
-        (vertical - 1.8) < targetVert
+        (horizontal - 2) < targetHori &&
+        (horizontal + 2) > targetHori &&
+        (vertical + 2) > targetVert &&
+        (vertical - 2) < targetVert
     ) {
         // console.log("Target hit!")
-        targetHori = (Math.round(Math.random() * 100));
-        targetVert = (Math.round(Math.random() *  (47.5 * ar)));
+        targetHori = (Math.floor(Math.random() * 50) * 2);
+        targetVert = (Math.floor(Math.random() * 50) * 2 * ar);
         // console.log("targetHori: " + targetHori + "\r\ntargetVert: " + targetVert);
         
         // Update score
@@ -109,8 +107,9 @@ setInterval (function() {
     //Player segment collisions
     for (let index = 0; index <= score; index++) {
         if (
-            vertical == verticalArc[index + 1] && 
-            horizontal == horizontalArc[index + 1]
+            (horizontalChange != 0 && verticalChange != 0) &&
+            (vertical == verticalArc[index + 1] && 
+            horizontal == horizontalArc[index + 1])
         ) {
             document.dispatchEvent(gameOver);
         }
@@ -139,12 +138,6 @@ document.getElementById("reset").addEventListener("click", () => {
         horizontalArc.pop();
         verticalArc.pop();
     }
-    score = 0;
-    scoreElem.innerText = 0;
-    horizontal = 50;
-    vertical = (50 * ar);
-    horizontalChange = 0;
-    verticalChange = 0;
 
     document.getElementById("gameOver").style.display = 'none';
     getAspectRatio();
@@ -152,13 +145,22 @@ document.getElementById("reset").addEventListener("click", () => {
 })
 
 document.addEventListener("gameOver", e => {
-    document.getElementById("gameOver").style.display = 'block';
     document.getElementById("finalScore").innerText = score;
+    document.getElementById("gameOver").style.display = 'block';
+    
+    horizontal = 50;
+    vertical = (50 * ar);
     horizontalChange = 0;
     verticalChange = 0;
     horizontal = 50;
+    scoreElem.innerText = 0;
+    
     vertical = (50 * ar);
-    for (let index = 0; index <= score; index++) {
-        document.getElementById("player_seg" + index).remove();
+    var segs = document.getElementsByClassName("playersegment");
+    for (let i = 0; i < segs.length; i++) {
+        segs[i].remove();
+        i--;
     }
+
+    score = 0;
 })
