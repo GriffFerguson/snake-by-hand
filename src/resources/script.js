@@ -119,7 +119,7 @@ setInterval (function() {
     //Player segment collisions
     for (let index = 0; index <= score; index++) {
         if (
-            (horizontalChange != 0 && verticalChange != 0) &&
+            (horizontalChange != 0 || verticalChange != 0) &&
             (vertical == verticalArc[index + 1] && 
             horizontal == horizontalArc[index + 1])
         ) {
