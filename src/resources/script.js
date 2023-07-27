@@ -5,6 +5,8 @@ window.addEventListener('resize', getAspectRatio)
 var score = 0;
 var scoreElem = document.getElementById("score");
 var gameOver = new Event("gameOver");
+var inhibiter = false;
+var pauseVector = []
 
 //Player
 var horizontal = 50; // Horizontal position
@@ -24,36 +26,44 @@ document.addEventListener('keydown', function(e) {
     switch(e.code) {
         case "ArrowRight":
             // console.log("right arrow pressed");
-            if (horizontalChange != -2) {
+            if (horizontalChange != -2 && !inhibiter) {
                 horizontalChange = 2;
                 verticalChange = 0;
             }
             break;
         case "ArrowLeft":
             // console.log("left arrow pressed");
-            if (horizontalChange != 2) {
+            if (horizontalChange != 2 && !inhibiter) {
                 horizontalChange = -2;
                 verticalChange = 0;
             }
             break;
         case "ArrowUp":
             // console.log("up arrow pressed");
-            if (verticalChange != 2) {
+            if (verticalChange != 2 && !inhibiter) {
                 horizontalChange = 0;
                 verticalChange = -2;
             }
             break;
         case "ArrowDown":
             // console.log("down arrow pressed");
-            if (verticalChange != -2) {
+            if (verticalChange != -2 && !inhibiter) {
                 horizontalChange = 0;
                 verticalChange = 2;
             }
             break;
-        // case "KeyP":
-        //     horizontalChange = 0;
-        //     verticalChange = 0;
-        //     break;
+        case "KeyP":
+            if (!inhibiter) {
+                pauseVector = [horizontalChange, verticalChange];
+                horizontalChange = 0;
+                verticalChange = 0;
+                inhibiter = true;
+            } else {
+                horizontalChange = pauseVector[0];
+                verticalChangeChange = pauseVector[1];
+                inhibiter = false;
+            }
+            break;
     }
 })
 
@@ -94,8 +104,10 @@ setInterval (function() {
     }
 
     //Player length
-    horizontalArc.unshift(horizontal);
-    verticalArc.unshift(vertical);
+    if (!inhibiter) {
+        horizontalArc.unshift(horizontal);
+        verticalArc.unshift(vertical);
+    }
     for (let index = 0; index < score; index++) {
         document.getElementById("player_seg" + index).style.left = horizontalArc[index + 1] +'vw';
         document.getElementById("player_seg" + index).style.top = verticalArc[index + 1] + 'vw';
@@ -133,11 +145,13 @@ function getAspectRatio() {
 document.getElementById("reset").addEventListener("click", () => {
     var horiArcLength = horizontalArc.length;
     // var vertArcLength = verticalArc.length;
+    inhibiter = false;
     
     for (let index = 0; index <= horiArcLength; index++) {
         horizontalArc.pop();
         verticalArc.pop();
     }
+
 
     document.getElementById("gameOver").style.display = 'none';
     getAspectRatio();
@@ -154,6 +168,7 @@ document.addEventListener("gameOver", e => {
     verticalChange = 0;
     horizontal = 50;
     scoreElem.innerText = 0;
+    inhibiter = true;
     
     vertical = (50 * ar);
     var segs = document.getElementsByClassName("playersegment");
